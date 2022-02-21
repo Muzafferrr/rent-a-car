@@ -64,7 +64,7 @@
         <b-form-datepicker v-model="returnDate" class="mr-2"></b-form-datepicker>
         <b-form-timepicker v-model="returnTime"></b-form-timepicker>
       </div>
-      <b-button class="mt-3" block variant="outline-dark">Search</b-button>
+      <b-button class="mt-3" block variant="outline-dark" @click="goToRent()">Search</b-button>
     </b-form>
   </div>
 </template>
@@ -85,7 +85,8 @@ export default {
       pickDate:'',
       pickTime:'',
       returnDate:'',
-      returnTime:''
+      returnTime:'',
+      userSelect:[]
     }
   },
   methods: {
@@ -94,6 +95,12 @@ export default {
     },
     onSlideEnd() {
       this.sliding = false
+    },
+    goToRent(){
+      this.userSelect.push(this.pickLocationValue, this.returnLocationValue,
+          this.pickDate, this.pickTime, this.returnDate, this.returnTime);
+      const userSelect = this.userSelect;
+      this.$router.push({name:'Rent', params:{userData: userSelect}});
     }
   }
 }

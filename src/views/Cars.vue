@@ -11,8 +11,11 @@ export default {
   name: "Cars",
   data() {
     return {
-      item:['Renault Clio 1.2', 'About AboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAbout car......', 130 ]
+      item:['Renault Clio 1.2', 'About car......', 130 ]
     }
+  },
+  props:{
+    userData: Array
   },
   components: {
     CarCard
