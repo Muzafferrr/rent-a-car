@@ -1,20 +1,26 @@
 <template>
   <div class="cardContainer">
-    <CarCard :item="item" class="carCardClass" v-for="i in 12" :key="i"></CarCard>
+    <CarCard :item="data.data[index]"
+             class="carCardClass"
+             v-for="(item,index) in data.data.length"
+             :key="index">
+    </CarCard>
   </div>
 </template>
 
 <script>
 import CarCard from "@/components/CarCard";
+import data from "../assets/data.json"
 
 export default {
   name: "Cars",
   data() {
     return {
-      item:['Renault Clio 1.2', 'About car......', 130 ]
+      item: ['Renault Clio 1.2', 'About car......', 130],
+      data: data
     }
   },
-  props:{
+  props: {
     userData: Array
   },
   components: {
@@ -24,13 +30,14 @@ export default {
 </script>
 
 <style scoped>
-.cardContainer{
+.cardContainer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 }
-.carCardClass{
+
+.carCardClass {
   margin: 20px 10px 20px 10px;
 }
 </style>

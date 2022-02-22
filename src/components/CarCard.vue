@@ -1,27 +1,62 @@
 <template>
   <div>
-    <b-card no-body class="overflow-hidden" style="max-width: 540px;">
+    <b-card no-body class="overflow-hidden"
+            style="max-width: 540px;"
+            @click="modalShow = !modalShow"
+    >
       <b-row no-gutters>
         <b-col md="6">
           <b-card-img
-              src="https://purepng.com/public/uploads/medium/purepng.com-black-renault-koleos-carcarvehicletransportrenault-961524669712ykw1s.png"
-              alt="Image" class="rounded-0"></b-card-img>
+              :src="item.image[0]"
+              class="rounded-0">
+
+          </b-card-img>
         </b-col>
         <b-col md="6">
-          <b-card-body :title="item[0]">
+          <b-card-body :title="item.title">
             <b-card-text>
-              {{ item[1] }}
+              {{ item.about }}
             </b-card-text>
             <div class="priceBucket">
               <b-card-text class="priceText">
-                ${{ item[2] }}
-                <b-icon icon="bucket" variant="dark"></b-icon>
+                ${{ item.price }}
+                <b-icon icon="bucket"
+                        variant="dark"
+                ></b-icon>
               </b-card-text>
             </div>
           </b-card-body>
         </b-col>
       </b-row>
     </b-card>
+
+    <b-modal v-model="modalShow">
+      <b-card no-body class="overflow-hidden"
+              style="max-width: 540px;">
+        <b-row no-gutters>
+          <b-col md="6">
+            <b-card-img
+                :src="item.image[0]"
+                class="rounded-0">
+
+            </b-card-img>
+          </b-col>
+          <b-col md="6">
+            <b-card-body :title="item.title">
+              <b-card-text>
+                {{ item.about }}
+              </b-card-text>
+              <div class="priceBucket">
+                <b-card-text class="priceText">
+                  ${{ item.price }}
+                </b-card-text>
+              </div>
+              <b-button @click="getInformation">Get Information</b-button>
+            </b-card-body>
+          </b-col>
+        </b-row>
+      </b-card>
+    </b-modal>
   </div>
 </template>
 
@@ -29,7 +64,18 @@
 export default {
   name: "Cars",
   props: {
-    item: Array
+    item: Object
+  },
+  data(){
+    return{
+      modalShow: false
+    }
+  },
+  methods:{
+    getInformation(){
+      this.$store.commit('setInformation', this.item)
+      console.log(this.item)
+    }
   }
 }
 </script>
@@ -39,7 +85,8 @@ export default {
   font-weight: bold;
   font-size: 18px;
 }
-.priceBucket{
+
+.priceBucket {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
